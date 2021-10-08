@@ -1,0 +1,8 @@
+Q2:
+select name
+from instructor left outer join teaches using (id)
+where course_id is null;
+----------
+Q3:
+select *
+from (section join classroom using(building, room_number));
