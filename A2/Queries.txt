@@ -9,4 +9,7 @@ from (section join classroom using(building, room_number));
 ----------
 Q4:
 create view tot_credits as
-select
+	select distinct year, sum(credits) from
+	(takes natural join course) natural join section
+group by year, credits;
+----------
