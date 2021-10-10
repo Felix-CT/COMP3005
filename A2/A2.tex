@@ -121,8 +121,9 @@ When a manager is deleted, the cascade statement will make it so that the delete
 
 
 \problem{5:}{5}
-Using the university schema, define a view \emph{tot\_credits} (\emph{year}, \emph{num\_credits}), giving the total number of credits taken in each year. Then, explain why insertions would not be possible into this view.
+Using the university schema, define a view \emph{tot\_credits} (\emph{year}, \emph{num\_credits}), giving the total number of credits taken in each year. Then, explain why insertions would not be possible into this view.\\\\
 
+It would not be possible to have insersions into this view, due to the fact that to create the view, there was a summation. By trying to update this view, there would be no way to relate the new information anywhere else in the database,
 
 
 

@@ -6,3 +6,7 @@ where course_id is null;
 Q3:
 select *
 from (section join classroom using(building, room_number));
+----------
+Q4:
+create view tot_credits as
+select
