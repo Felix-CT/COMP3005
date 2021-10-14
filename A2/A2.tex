@@ -123,7 +123,9 @@ When a manager is deleted, the cascade statement will make it so that the delete
 \problem{5:}{5}
 Using the university schema, define a view \emph{tot\_credits} (\emph{year}, \emph{num\_credits}), giving the total number of credits taken in each year. Then, explain why insertions would not be possible into this view.\\\\
 
-It would not be possible to have insersions into this view, due to the fact that to create the view, there was a summation. By trying to update this view, there would be no way to relate the new information anywhere else in the database,
+Insertions would not be possible into this view due to the fact that we are using a summation. If we were to add say ('2025', 50) to the view, thre would be no way to split up the "50" in the original database, as we would not know which classes were taken to amount to that number of credits.\\\\
+The reason it works like this is because a "view" in SQL is simply a short-hand way of defining a "select" operation. There would be no way of adding these credits so that the next time the same "select" operation is called (the next time the view is used), the 50 credits for 2025 could still be found.\\\\
+In order to actually update the view, in a sense, we would have to update the "takes" relation to have new tuples during the year 2025, as well as update the "teaches" and "section" relations to include that new information. This way would not directly update through the view as specified, but it would be a possible way of obtaining our result.b
 
 
 

@@ -7,9 +7,22 @@ Q3:
 select *
 from (section join classroom using(building, room_number));
 ----------
-Q4:
+Q5:
 create view tot_credits as
 	select distinct year, sum(credits) from
 	(takes natural join course) natural join section
-group by year, credits;
+group by year;
 ----------
+Q7:
+create function avg_sal(company_name varchar(20))
+	returns float
+	begin
+		select avg(salary)
+		from works
+		where works.company_name = company_name
+	end
+
+
+select distinct company_name
+from works
+where avg_sal(company_name) > avg_sal("Losers Inc.");

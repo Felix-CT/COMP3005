@@ -1,4 +1,8 @@
 A1/
+lecture slides/
+A2/out
+A2/.idea
+A2/src/com/company/main.java
 *.pdf
 *.aux
 *.fdb_latexmk
@@ -7,3 +11,5 @@ A1/
 *.gz
 *.sty
 *.fls
+*.iml
+*.synctex*
