@@ -1,4 +1,5 @@
 A1/
+A2/
 *.pdf
 *.aux
 *.fdb_latexmk
@@ -7,3 +8,4 @@ A1/
 *.gz
 *.sty
 *.fls
+*.png
