@@ -37,20 +37,20 @@ pdfproducer={PDFLaTeX},%
 
 \problem{1:}{11}
 Design a database for a national family medicine practice with a set of patients and a set of medical doctors. The database should capture the relationship between doctors and patients, where a patient can possibly have a family doctor, or multiple doctors. The database should also store the patients tests. The tests can be ordered by one or more doctors, but this is not mandatory since a test can be ordered by a nurse practitioner (no need to model nurses). The database should keep track of the dates of the tests as well as their results. Draw an ER-diagram for your design. Feel free to include any attributes you find relevant to this database. Underline the primary key in the entity sets.\\\\
-Entities:\\
-Patients (name, patitent\_id)\\
-Doctors\\
-tests; date; results\\
 
+\includegraphics[width=400px]{ER diagram.png}
 
 
 \problem{2:}{6}
-Reduce your ER-diagram to relations. Underline primary keys.
-
+Reduce your ER-diagram to relations. Underline primary keys.\\\\
+\textit{Doctor(\underline{Doctor\_ID}, Name)}\\
+\textit{Patient(\underline{Patient\_ID, Name})}\\
+\textit{Test(Test\_ID, Date, Result)}
 
 
 \problem{3:}{5}
-If any test must be ordered by a doctor, what needs to be changed in your answer to Q1? Either draw a new ER-diagram, or describe the changes. How will the reduced relations change?
+If any test must be ordered by a doctor, what needs to be changed in your answer to Q1? Either draw a new ER-diagram, or describe the changes. How will the reduced relations change?\\\\
+If any test must be ordered by a doctor, this would affect the description that nurses are allowed to order tests. This would mean that the number that goes from the test to doctor would change from "0 . . *" to "1 . . *", since at least one doctor has to order the test. Additionally, the line from "Test" to "orders" would have to become a double line, since each test must belong to at least one doctor.
 
 
 
@@ -59,8 +59,12 @@ Consider the following ER diagram for a database design for a car insurance comp
 
 \includegraphics[width=\textwidth]{er2.png}
 
-\noindent Construct the relation schemas for this ER diagram.
-
+\noindent Construct the relation schemas for this ER diagram.\\\\
+\textit{customer(\underline{customer\_id}, name, address)}\\
+\textit{car(\underline{license\_no}, model})\\
+\textit{accident(\underline{report\_id}, date, place)}\\
+\textit{policy(\underline{policy\_id})}\\
+\textit{premium\_payment(\underline{payment\_no}, due\_date, amount, received\_on)}
 
 
 
