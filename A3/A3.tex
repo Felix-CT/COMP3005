@@ -38,8 +38,10 @@ pdfproducer={PDFLaTeX},%
 \problem{1:}{11}
 Design a database for a national family medicine practice with a set of patients and a set of medical doctors. The database should capture the relationship between doctors and patients, where a patient can possibly have a family doctor, or multiple doctors. The database should also store the patients tests. The tests can be ordered by one or more doctors, but this is not mandatory since a test can be ordered by a nurse practitioner (no need to model nurses). The database should keep track of the dates of the tests as well as their results. Draw an ER-diagram for your design. Feel free to include any attributes you find relevant to this database. Underline the primary key in the entity sets.\\\\
 
-\includegraphics[width=400px]{ER diagram.png}
-
+We will assume that when it specifies "a patient can possibly have a family doctor, or multiple doctors" this means that each patient must have at least one doctor. We will also assume that each test must belong to at least one patient.\\
+\begin{center}
+\includegraphics[width=350px]{ER diagram.png}
+\end{center}
 
 \problem{2:}{6}
 Reduce your ER-diagram to relations. Underline primary keys.\\\\
