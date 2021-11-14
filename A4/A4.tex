@@ -1,0 +1,143 @@
+\documentclass[a4 paper]{article}
+% Set target color model to RGB
+\usepackage[inner=2.0cm,outer=2.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage[rgb]{xcolor}
+\usepackage{verbatim}
+\usepackage{subcaption}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,tikz,amssymb,tkz-linknodes}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, urlcolor=blue,  linkcolor=blue, citecolor=blue]{hyperref}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{rotating}
+%\usetikzlibrary{through,backgrounds}
+\hypersetup{%
+pdfauthor={Ashudeep Singh},%
+pdftitle={Assignment 4},%
+pdfkeywords={Tikz,latex,bootstrap,uncertaintes},%
+pdfcreator={PDFLaTeX},%
+pdfproducer={PDFLaTeX},%
+}
+%\usetikzlibrary{shadows}
+% \usepackage[francais]{babel}
+\usepackage{booktabs}
+\input{macros.tex}
+
+
+\begin{document}
+\homework{Assignment \#4}{Due: Friday November 19, 2021 (11:59 PM)}{Ahmed El-Roby}{}{Félix Cardinal Tremblay}{101141593}
+\textbf{Instructions}: Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
+\begin{itemize}
+    \item The accepted format for your submission is pdf only.
+    \item If you use the tex file, make sure you edit line 28 to add your name and ID. Only write your solution and do not change anything else in the tex file. If you do, you will be penalized.
+    \item \item Late submissions are allowed for 24 hours after the deadline above with a penalty of 10\% of the total grade of the assignment. Submissions after more than 24 are not allowed.
+\end{itemize}
+
+\problem{1:}{3}
+In class, we showed that functional dependencies are transitive. That is, if $X \rightarrow Y$ and $Y \rightarrow Z$, then $X \rightarrow Z$. Assume a new proposed rule: If $X \rightarrow Y$ and $Z \rightarrow Y$, then $X \rightarrow Z$. Prove that this rule is incorrect.\\\\
+Here is a counter example:
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+   \hline
+    X & Y & Z\\ [0.5ex]
+   \hline\hline
+   a & 1 & b\\
+   \hline
+   a & 1 & c\\
+   \hline
+   b & 1 & a\\
+   \hline
+  \end{tabular}
+\end{center}
+$X\rightarrow Y$ is valid as there is no situation where the $X$ values are the same, but the values of $Y$ is different.\\
+$Z\rightarrow Y$ is valid as there is no situation where the $Z$ values are the same, but the values of $Y$ is different.\\
+$X\rightarrow Z$ is invalid, as we have the tuples $(a,b),(a,c)$, so $X$ cannot be functionally dependent on $Z$
+
+
+
+\problem{2:}{3}
+How can you use functional dependencies to represent the constraint that a relationship between two entity sets $X$ and $Y$ is one-to-many from $X$ to $Y$.\\\\
+You would denote it as $Y\rightarrow X$. This is because multiple values of $Y$ can have the same value of $X$, without the constraint being violated. On the other hand, if we were to have different values of $X$ for the same value of $Y$, the constraint (and the relationship) would be violated.
+
+
+\problem{3:}{8}
+Consider the following relation $R = \{A, B, C, D, E\}$ and the following set of functional dependencies \\$F = \{
+\\A \rightarrow BC\\
+CD \rightarrow E\\
+B \rightarrow D\\
+E \rightarrow A\}$\\
+Compute $B^{+}$. Is $R$ in BCNF? If not, give a lossless decomposition of $R$ into BCNF. Show your work for all previous questions.\\\\
+Knowing $B$ allows us to infer $D$, but nothing else can be inferred using only $B$ and $D$. Therefore, $B^+=\{D\}$.\\
+
+
+
+
+
+
+\problem{4:}{4}
+Give a lossless, dependency-preserving decomposition into 3NF of schema $R$ in Q3.
+
+
+
+\problem{5:}{4}
+Assume the following decomposition of $R$ in Q3: $R_{1}(A, B, E)$ and $R_{2}(C, D, E)$. Is this decomposition lossy or lossless? Why? Show your work in detail.\\\\
+This is because $R_1\cap R_2={}$. Since the intersection is the empty set, this means that there
+
+
+
+\problem{6:}{22}
+Consider the following relation $R(A, B, C, D, E, G)$ and the set of functional dependencies \\$F = \{
+\\A \rightarrow BCD\\
+BC \rightarrow DE\\
+B \rightarrow D\\
+D \rightarrow A\}$\\
+
+\noindent Note: Show the steps for each answer.
+
+\subproblem{a} Compute $B^{+}$. \indent (4 points)\\
+
+
+
+\subproblem{b} Prove (using Armstrong's axioms) that $AG$ is superkey. \indent (4 points)\\
+
+
+\subproblem{c} Compute $F_{c}$. \indent (6 points)\\
+
+
+
+\subproblem{d} Give a 3NF decomposition of the given schema based on a canonical cover. \indent (4 points)
+
+
+
+\subproblem{e} Give a BCNF decomposition of the given schema based on $F$. Use the first functional dependency as the violator of the BCNF condition. \indent (4 points)\\
+
+
+
+\problem{7:}{6}
+Given the following set of functional dependencies:\\
+$A \rightarrow BC$\\
+$B \rightarrow AC$\\
+$C \rightarrow AB$\\
+Show that it is possible to find more than one unique canonical cover for this set.
+
+
+
+\problem{8}{7}
+Consider the schema $R = (A, B, C, D, E, G)$ and the set $F$ of functional dependencies:\\
+$A \rightarrow BC$\\
+$BD \rightarrow E$\\
+$CD \rightarrow AB$\\
+Use the BCNF decomposition algorithm to find a BCNF decomposition
+of $R$. Start with $A \rightarrow BC$. Explain your steps. Is this decomposition lossy or lossless? Is it dependency-preserving?
+
+
+
+\problem{9:}{3}
+As discussed in class, SQL does not support functional dependency constraints. But it supports materialized views. Assume that the DBMS maintains the materialized view immediately. Given a relation $R(W, X, Y, Z)$, how would you use materialized views to enforce the functional dependency $W \rightarrow Z$?
+
+
+
+\end{document}
+
+
+\end{document}
