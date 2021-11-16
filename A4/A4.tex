@@ -67,7 +67,46 @@ CD \rightarrow E\\
 B \rightarrow D\\
 E \rightarrow A\}$\\
 Compute $B^{+}$. Is $R$ in BCNF? If not, give a lossless decomposition of $R$ into BCNF. Show your work for all previous questions.\\\\
-Knowing $B$ allows us to infer $D$, but nothing else can be inferred using only $B$ and $D$. Therefore, $B^+=\{D\}$.\\
+\begin{align*}
+  &\text{result} = B\\
+  &B\rightarrow D: \text{ result} = BD
+\end{align*}
+$R$ is not in BCNF. This is because for $R$ to be in BCNF, we need the all of the values on the left side of the arrows to be superkeys. Since $B$ is not a superkey, it means that $R$ cannot be in BCNF.\\\\
+We will begin by listing out all of the closures of the Left hand side of the arrows.
+$A^+$:
+\begin{align*}
+  &\text{result} = A\\
+  &A\rightarrow BC: \text{ result} = ABC\\
+  &B\rightarrow D: \text{ result} = ABCD\\
+  &CD\rightarrow E: \text{ result} = ABCDE
+\end{align*}
+and thus $A^+\subseteq R$.\\
+$(CD)^+$:
+\begin{align*}
+  &\text{result} = CD\\
+  &CD\rightarrow E: \text{ result} = CDE\\
+  &E\rightarrow A: \text{ result} = ACDE\\
+  &A\rightarrow BC: \text{ result} = ABCDE
+\end{align*}
+and thus $(CD)^+\subseteq R$.\\
+$E^+$:
+\begin{align*}
+  &\text{result} = E\\
+  &E\rightarrow A: \text{ result} = AE\\
+  &A\rightarrow BC: \text{ result} = ABCE\\
+  &B\rightarrow D: \text{ result} = ABCDE\\
+\end{align*}
+and thus $(E)^+\subseteq R$.\\
+So, finally we have:
+\begin{align*}
+  &A^+: ABCDE\\
+  &CD^+: ABCDE\\
+  &E^+: ABCDE\\
+  &B^+: BD
+\end{align*}
+
+So, we need to create two relation such that A, CD, E, and B are primary keys, and that the intersection of the two relations is a primary key of at least one of the relations. We know that for $B$ to be a primary key, we need it to be in a relation that only contains $B$ and $D$. Therefore, we know that $R_1=\{B,D\}$. Next, since the closure of the other three attributes is $R$, it does not matter which values we choose, as our remaining values determine all values. So, we can choose it as the following: $R_2=\{A,B,C,E\}$. Since $R_1\cup R_2={B}$, and $B$ is a superkey for $R_2$, we know it must be lossless.\\\\
+Since $A^+, CD^+$ and $E^+$ are superkeys for $R_2$ and $B$ is a superkey for $R_1$, we know the decomposition must be in BCNF.
 
 
 
@@ -75,13 +114,39 @@ Knowing $B$ allows us to infer $D$, but nothing else can be inferred using only 
 
 
 \problem{4:}{4}
-Give a lossless, dependency-preserving decomposition into 3NF of schema $R$ in Q3.
+Give a lossless, dependency-preserving decomposition into 3NF of schema $R$ in Q3.\\\\
 
+We start with the following functional dependencies:
+\\$F = \{
+\\A \rightarrow BC\\
+CD \rightarrow E\\
+B \rightarrow D\\
+E \rightarrow A\}$\\
+We want to find the canonical cover, that is, $F_c$.
+The dependencies $A\rightarrow BC$ and $E\rightarrow A$ can be replaced by $E\rightarrow ABC$. Thus, our current $F_c$ is:\\
+$\{
+\\E \rightarrow ABC\\
+CD \rightarrow E\\
+B \rightarrow D\}$\\
 
+Next, we notice that $E \rightarrow ABC$ and $CD \rightarrow E$ can be replaced by $CD\rightarrow ABCE$, so $F_c$ is:\\
+$\{
+\\CD \rightarrow ABCE\\
+B \rightarrow D\}$\\
+
+%THIS COULD DEFINITELY BE WRONG
+%Since we have $C$ on both sides, we can then show $CD \rightarrow ABCED=\rightarrow ABED$
+
+Since there are no extraneous attributes in the functional dependencies:
+$F_c=\{B\rightarrow D, CD\rightarrow ABCE$\\
+After the first loop of the algorithm, we would get the following relations:\\
+$R_1:\{A,B,C,D,E\}$, $R_2:\{B,D\}$
+Then, because $R_2\subseteq R_1$, we can delete $R_2$.
 
 \problem{5:}{4}
 Assume the following decomposition of $R$ in Q3: $R_{1}(A, B, E)$ and $R_{2}(C, D, E)$. Is this decomposition lossy or lossless? Why? Show your work in detail.\\\\
-This is because $R_1\cap R_2={}$. Since the intersection is the empty set, this means that there
+For the decomposition of a relation to be lossless, we need one of the two following conditions to be true: $R_1 \cap R_2\rightarrow R_1$, or $R_1 \cap R_2\rightarrow R_2$.
+Since $R_1\cap R_2=\{\}$, this means that the decomposition must be lossy.
 
 
 
@@ -95,10 +160,20 @@ D \rightarrow A\}$\\
 \noindent Note: Show the steps for each answer.
 
 \subproblem{a} Compute $B^{+}$. \indent (4 points)\\
+\begin{align*}
+  &\text{result} = B\\
+  &B\rightarrow D: \text{ result} = BD\\
+  &D\rightarrow A: \text{ result} = ABD\\
+  &A\rightarrow BCD: \text{ result} = ABCD\\
+  &BC\rightarrow DE: \text{ result} = ABCDE\\
+\end{align*}
+so, our final result is $B^+=\{A,B,C,D,E\}$
+
 
 
 
 \subproblem{b} Prove (using Armstrong's axioms) that $AG$ is superkey. \indent (4 points)\\
+We can start with the following:
 
 
 \subproblem{c} Compute $F_{c}$. \indent (6 points)\\
