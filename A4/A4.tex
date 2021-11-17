@@ -143,6 +143,8 @@ After the first loop of the algorithm, we would get the following relations:\\
 $R_1:\{A,B,C,D,E\}$, $R_2:\{B,D\}$
 Then, because $R_2\subseteq R_1$, we can delete $R_2$.
 
+%I computed the canonical cover, but I dind't put it in 3nf
+
 \problem{5:}{4}
 Assume the following decomposition of $R$ in Q3: $R_{1}(A, B, E)$ and $R_{2}(C, D, E)$. Is this decomposition lossy or lossless? Why? Show your work in detail.\\\\
 For the decomposition of a relation to be lossless, we need one of the two following conditions to be true: $R_1 \cap R_2\rightarrow R_1$, or $R_1 \cap R_2\rightarrow R_2$.
@@ -173,11 +175,24 @@ so, our final result is $B^+=\{A,B,C,D,E\}$
 
 
 \subproblem{b} Prove (using Armstrong's axioms) that $AG$ is superkey. \indent (4 points)\\
-We can start with the following:
+To find if $AG$ is a superkey, we must first find $AG^+$ and find if ir contains all attributes in $R$. We can start with the following:
 
+$$A\rightarrow BCD$$
+By the decomposition rule, we know that if $A\rightarrow BCD$, then $A\rightarrow B, A\rightarrow C$, and $A\rightarrow D$ are all valid. This means that by the union rule, we can show $A\rightarrow BC$, and then by the transitivity rule, as can show $A\rightarrow DE$. Then, finally, by the union rule, we can combine the two previous ones to finish with $A\rightarrow BCDE$.\\\\
+Since we have the functional dependecy $A\rightarrow BCDE$, and we know $AG$, this means that $AG+=\{A, B, C, D, E, G\}$. Therefore, since $AG+$ contains all elements in $R$, $AG$ is a superkey for $R$.
 
 \subproblem{c} Compute $F_{c}$. \indent (6 points)\\
-
+Since $B\rightarrow D$ and $D\rightarrow A$, we can use the transitivity rule to show $B\rightarrow A$, and then use the union rule to show $B\rightarrow AD$. This means our current $F_c$ will look like the following:
+\\$F_c = \{
+\\A \rightarrow BCD\\
+BC \rightarrow DE\\
+B \rightarrow AD}$\\
+Now, since we know $A\rightarrow BCD$, we can use the decoposition rule to show $A\rightarrow BC$. Then, with the transitivity rule we can show $A\rightarrow DE$, because $BC\rightarrow DE$. Therefore, by using the union rule, our current $F_c$ will be:
+\\$F_c = \{
+\\A \rightarrow ABCDE\\
+B \rightarrow AD$\}\\
+Then, with the decomposition rule we can obtain $A\rightarrow B$. Since we can already have $A\rightarrow AD$ from the decomposition + augmentation rule on the first depdency, we can simply show that $F_c=\{A\rightarrow ABCDE\}$
+%This seems wrong, since you're losing the extra information right?
 
 
 \subproblem{d} Give a 3NF decomposition of the given schema based on a canonical cover. \indent (4 points)
@@ -193,7 +208,11 @@ Given the following set of functional dependencies:\\
 $A \rightarrow BC$\\
 $B \rightarrow AC$\\
 $C \rightarrow AB$\\
-Show that it is possible to find more than one unique canonical cover for this set.
+Show that it is possible to find more than one unique canonical cover for this set.\\\\
+We will begin by examining $B\rightarrow AC$.\\
+We can see that by the decomposition rule, $B\rightarrow A$, and $B\rightarrow C$. By the transitivity and union rules, we then combine $B\rightarrow A$ with $A\rightarrow BC$ to have $B\rightarrow ABC$, which reduces to $B\rightarrow AC$. Therefore, we remove $A\rightarrow BC$ from $F_c$ Since all of its attributes are accounted for. Additionally, $C\rightarrow AB$ does not provide any new information, and so our final $F_c$ is $\{B\rightarrow AC\}$.\\\\
+Now, we will do the same process, but begin by examining $C\rightarrow AB$.\\
+By the decomposition rule, we can obtain $C\rightarrow A$ and $C\rightarrow B$. Next, we can use the transitivity and union rule with $A\rightarrow BC$, to obtain $C\rightarrow ABC$, which reduces into $C\rightarrow AB$, and remove $A\rightarrow BC from F_c$. Finally, $B\rightarrow AC$ does not provide any new information, and so it can be removed. Therefore, our second possile version of $F_c$ is $\{C\rightarrow AB\}$, and so there can be more than one unique canonical cover for this set.
 
 
 
@@ -202,14 +221,19 @@ Consider the schema $R = (A, B, C, D, E, G)$ and the set $F$ of functional depen
 $A \rightarrow BC$\\
 $BD \rightarrow E$\\
 $CD \rightarrow AB$\\
-Use the BCNF decomposition algorithm to find a BCNF decomposition
-of $R$. Start with $A \rightarrow BC$. Explain your steps. Is this decomposition lossy or lossless? Is it dependency-preserving?
+Use the BCNF decomposition algorithm to find a BCNF decomposition of $R$. Start with $A \rightarrow BC$. Explain your steps. Is this decomposition lossy or lossless? Is it dependency-preserving?\\\\
+\begin{align*}
+  &\text{result} = ABC\\
+\end{align*}
+We cannot infer $BD$ or $CD$ from our current result, so $R_1=\{A,B,C\}$.
+Next, we can look at $BD\rightarrow E$. Again, knowing $BDE$ does not allow us to infer any more information, and so $R_2=\{B,D,E\}$.\\
+Then, we have $CD\rightarrow AB$. Since we know $A$, we can add $A\rightarrow BC$ to our result. Therefore, we have 
 
 
 
 \problem{9:}{3}
-As discussed in class, SQL does not support functional dependency constraints. But it supports materialized views. Assume that the DBMS maintains the materialized view immediately. Given a relation $R(W, X, Y, Z)$, how would you use materialized views to enforce the functional dependency $W \rightarrow Z$?
-
+As discussed in class, SQL does not support functional dependency constraints. But it supports materialized views. Assume that the DBMS maintains the materialized view immediately. Given a relation $R(W, X, Y, Z)$, how would you use materialized views to enforce the functional dependency $W \rightarrow Z$?\\\\
+I would create a view that contains only $W$ and $Z$, where $W$ is the primary key.
 
 
 \end{document}
