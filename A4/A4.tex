@@ -122,7 +122,23 @@ We start with the following functional dependencies:
 CD \rightarrow E\\
 B \rightarrow D\\
 E \rightarrow A\}$\\
-We want to find the canonical cover, that is, $F_c$.
+We want to find the canonical cover, that is, $F_c$.\\\\
+First, we will see if there are any extraneous ttributes in the left side. we have $CD\rightarrow E$, and so we want see if we can imply $C\rightarrow E$ or $D\rightarrow E$ from $C^+$ or $D^+$.\\\\
+Since ther are no other depencies with $D$ or $C$ on the left side, both $D^+$ and $C^+$ only contan $D$ an $C$ respectively. Next, we'll check if there  are any extraneous attributes on the right side. There is only one dependency with two attributes on the left side, which is $A\rightarrow BC$. Therefore we need to calculate $B^+$, since $C^+$ is already calculated.\\
+We can see that $B\rightarrow D$, and so $B^+=BD$. However, there are no other relations for which $B$ is on the left hand side, and so we cannot infer anything else. Thus, since we have no way of showing $A\rightarrow B$ or $A\rightarrow C$, there cannot be any extraneous attributes on the right hand side, and so $F=F_c$. Now, using this canonical cover, we want to calculate 3NF.
+
+
+
+
+
+
+
+
+
+
+
+
+
 The dependencies $A\rightarrow BC$ and $E\rightarrow A$ can be replaced by $E\rightarrow ABC$. Thus, our current $F_c$ is:\\
 $\{
 \\E \rightarrow ABC\\
@@ -182,16 +198,65 @@ By the decomposition rule, we know that if $A\rightarrow BCD$, then $A\rightarro
 Since we have the functional dependecy $A\rightarrow BCDE$, and we know $AG$, this means that $AG+=\{A, B, C, D, E, G\}$. Therefore, since $AG+$ contains all elements in $R$, $AG$ is a superkey for $R$.
 
 \subproblem{c} Compute $F_{c}$. \indent (6 points)\\
-Since $B\rightarrow D$ and $D\rightarrow A$, we can use the transitivity rule to show $B\rightarrow A$, and then use the union rule to show $B\rightarrow AD$. This means our current $F_c$ will look like the following:
-\\$F_c = \{
-\\A \rightarrow BCD\\
+%Since $B\rightarrow D$ and $D\rightarrow A$, we can use the transitivity rule to show $B\rightarrow A$, and then use the union rule to show $B\rightarrow AD$. This means our current $F_c$ will look like the following:
+%\\$F_c = \{
+%\\A \rightarrow BCD\\
+%BC \rightarrow DE\\
+%B \rightarrow AD}$\\
+
+We begin with the following:\\
+$F=\{\\
+A \rightarrow BCD\\
 BC \rightarrow DE\\
-B \rightarrow AD}$\\
-Now, since we know $A\rightarrow BCD$, we can use the decoposition rule to show $A\rightarrow BC$. Then, with the transitivity rule we can show $A\rightarrow DE$, because $BC\rightarrow DE$. Therefore, by using the union rule, our current $F_c$ will be:
-\\$F_c = \{
-\\A \rightarrow ABCDE\\
-B \rightarrow AD$\}\\
-Then, with the decomposition rule we can obtain $A\rightarrow B$. Since we can already have $A\rightarrow AD$ from the decomposition + augmentation rule on the first depdency, we can simply show that $F_c=\{A\rightarrow ABCDE\}$
+B \rightarrow D\\
+D \rightarrow A\}$\\
+
+We will check to see if $D$ is extraneous in $BC\rightarrow DE$.\\
+$F'=\{\\
+A\rightarrow BCD\\
+BC\rightarrow E\\
+B\rightarrow D\\
+D\rightarrow A\}$
+Now, we need to check if $BC\right D$ can be implied by $F'$. Since $B\rightarrow D$, we know $BC\rightarrow D$.
+Next, we can see that $B^+=\{A,B,C,D,E\}$, as we calculated in the previous question, so since $D\in B^+$, $D$ is extraneous. Thus, currently:\\
+$F_c=\{\\
+A\rightarrow BCD\\
+BC\rightarrow E\\
+B\rightarrow D\\
+D\rightarrow A\}$
+\\\\
+Next, we need to check if there are any other possible extraneous attributes. We can see that since there are no dependencies with $C$ as an attribute in the left hand side, $C$ wll not be extraneous.\\
+Additionally, we can notice that $D$ may be extraneous in $A\rightarrow BCD$. To check, we will define:\\
+$F'=\{\\
+A\rightarrow BC\\
+BC\rightarrow E\\
+B\rightarrow D\\
+D\rightarrow A\}$\\
+Then, we will compute $A^+$
+From the first dependency, we know $A^+$ will have $ABC$. Then, from the 2nd dependency, since $A\rightarrow BC$ and $BC\rightarrow E$, by the transitivity rule we can infer that $A\rightarrow E$, so we will have $ABCE$. Next, by the third dependency, since we know $A\rightarrow B$, and $B\rightarrow D$, by transitivity, $D$ will be in $A^+$. Since $A^+$ contains $D$, it must be extraneous. Therefore, our current canonical cover will be:\\
+$F_c=\{\\
+A\rightarrow BC\\
+BC\rightarrow E\\
+B\rightarrow D\\
+D\rightarrow A\}$\\
+
+Now, since we can quite trivially see that $C$ is not in $B^+$ and $B$ is not in $C^+$, we know that there must not be any more extraneous attributes. Therefore, our final canonical cover will be:\\
+$F_c=\{\\
+A\rightarrow BC\\
+BC\rightarrow E\\
+B\rightarrow D\\
+D\rightarrow A\}$\\
+
+
+
+
+
+
+% Now, since we know $A\rightarrow BCD$, we can use the decoposition rule to show $A\rightarrow BC$. Then, with the transitivity rule we can show $A\rightarrow DE$, because $BC\rightarrow DE$. Therefore, by using the union rule, our current $F_c$ will be:
+% \\$F_c = \{
+% \\A \rightarrow ABCDE\\
+% B \rightarrow AD$\}\\
+% Then, with the decomposition rule we can obtain $A\rightarrow B$. Since we can already have $A\rightarrow AD$ from the decomposition + augmentation rule on the first depdency, we can simply show that $F_c=\{A\rightarrow ABCDE\}$
 %This seems wrong, since you're losing the extra information right?
 
 
@@ -209,10 +274,48 @@ $A \rightarrow BC$\\
 $B \rightarrow AC$\\
 $C \rightarrow AB$\\
 Show that it is possible to find more than one unique canonical cover for this set.\\\\
-We will begin by examining $B\rightarrow AC$.\\
-We can see that by the decomposition rule, $B\rightarrow A$, and $B\rightarrow C$. By the transitivity and union rules, we then combine $B\rightarrow A$ with $A\rightarrow BC$ to have $B\rightarrow ABC$, which reduces to $B\rightarrow AC$. Therefore, we remove $A\rightarrow BC$ from $F_c$ Since all of its attributes are accounted for. Additionally, $C\rightarrow AB$ does not provide any new information, and so our final $F_c$ is $\{B\rightarrow AC\}$.\\\\
-Now, we will do the same process, but begin by examining $C\rightarrow AB$.\\
-By the decomposition rule, we can obtain $C\rightarrow A$ and $C\rightarrow B$. Next, we can use the transitivity and union rule with $A\rightarrow BC$, to obtain $C\rightarrow ABC$, which reduces into $C\rightarrow AB$, and remove $A\rightarrow BC from F_c$. Finally, $B\rightarrow AC$ does not provide any new information, and so it can be removed. Therefore, our second possile version of $F_c$ is $\{C\rightarrow AB\}$, and so there can be more than one unique canonical cover for this set.
+
+We will first consider the functional dependency $B\rightarrow AC$.\\
+We know that $C\in AC$, and $(F-\{B\rightarrow AC\})\cup\{B\rightarrow A\}$, because $B\rightarrow A$ and $A\rightarrow C$. Therefore, $C$ must be an extraneous attribute in the dependency $B\rightarrow AC$. Thus,\\
+$F_c=\{\\
+A\rightarrow BC\\
+B\rightarrow A\\
+C\rightarrow AB\}$\\
+Next, we will consider the functional depdency $A\rightarrow BC$. We know that $B\in BC$, and and $(F-\{A\rightarrow BC\})\cup\{A\rightarrow C\}$, because $A\rightarrow C$ and $C\rightarrow B$. Therefore, $B$ must be an extraneous attribute in the dependency $A\rightarrow BC$. Thus,\\
+$F_c=\{\\
+A\rightarrow C\\
+B\rightarrow A\\
+C\rightarrow AB\}$\\
+Next, we will consider the functional depdency $C\rightarrow AB$. We know that $A\in AB$, and and $(F-\{C\rightarrow AB\})\cup\{C\rightarrow B\}$, because $C\rightarrow B$ and $B\rightarrow A$. Therefore, $A$ must be an extraneous attribute in the dependency $C\rightarrow AB$. Thus,\\
+$F_c=\{\\
+A\rightarrow C\\
+B\rightarrow A\\
+C\rightarrow AB\}$\\\\
+We have finished computing the first possible canonical cover, and we will now compute the second:\\\\
+We will first consider the functional dependency $B\rightarrow AC$.\\
+We know that $A\in AC$, and $(F-\{B\rightarrow AC\})\cup\{B\rightarrow C\}$, because $B\rightarrow C$ and $C\rightarrow A$. Therefore, $A$ must be an extraneous attribute in the dependency $B\rightarrow AC$. Thus,\\
+$F_c=\{\\
+A\rightarrow BC\\
+B\rightarrow C\\
+C\rightarrow AB\}$\\
+We know that $C\in AC$, and $(F-\{A\rightarrow BC\})\cup\{A\rightarrow B\}$, because $A\rightarrow B$ and $B\rightarrow C$. Therefore, $C$ must be an extraneous attribute in the dependency $A\rightarrow BC$. Thus,\\
+$F_c=\{\\
+A\rightarrow B\\
+B\rightarrow C\\
+C\rightarrow AB\}$\\
+Then, we know that $B\in AB$, and $(F-\{C\rightarrow AB\})\cup\{C\rightarrow A\}$, because $C\rightarrow A$ and $A\rightarrow B$. Therefore, $B$ must be an extraneous attribute in the dependency $C\rightarrow AB$. Thus,\\
+$F_c=\{\\
+A\rightarrow B\\
+B\rightarrow C\\
+C\rightarrow A\}$\\\\
+Therefore, we have arrived at our second canonical cover, and shown that there can be more than one valid canonical covers for a set of dependencies.
+
+
+
+% We will begin by examining $B\rightarrow AC$.\\
+% We can see that by the decomposition rule, $B\rightarrow A$, and $B\rightarrow C$. By the transitivity and union rules, we then combine $B\rightarrow A$ with $A\rightarrow BC$ to have $B\rightarrow ABC$, which reduces to $B\rightarrow AC$. Therefore, we remove $A\rightarrow BC$ from $F_c$ Since all of its attributes are accounted for. Additionally, $C\rightarrow AB$ does not provide any new information, and so our final $F_c$ is $\{B\rightarrow AC\}$.\\\\
+% Now, we will do the same process, but begin by examining $C\rightarrow AB$.\\
+% By the decomposition rule, we can obtain $C\rightarrow A$ and $C\rightarrow B$. Next, we can use the transitivity and union rule with $A\rightarrow BC$, to obtain $C\rightarrow ABC$, which reduces into $C\rightarrow AB$, and remove $A\rightarrow BC from F_c$. Finally, $B\rightarrow AC$ does not provide any new information, and so it can be removed. Therefore, our second possile version of $F_c$ is $\{C\rightarrow AB\}$, and so there can be more than one unique canonical cover for this set.
 
 
 
@@ -227,7 +330,7 @@ Use the BCNF decomposition algorithm to find a BCNF decomposition of $R$. Start 
 \end{align*}
 We cannot infer $BD$ or $CD$ from our current result, so $R_1=\{A,B,C\}$.
 Next, we can look at $BD\rightarrow E$. Again, knowing $BDE$ does not allow us to infer any more information, and so $R_2=\{B,D,E\}$.\\
-Then, we have $CD\rightarrow AB$. Since we know $A$, we can add $A\rightarrow BC$ to our result. Therefore, we have 
+Then, we have $CD\rightarrow AB$. Since we know $A$, we can add $A\rightarrow BC$ to our result. Therefore, we have
 
 
 
