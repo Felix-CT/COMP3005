@@ -164,7 +164,7 @@ Then, because $R_2\subseteq R_1$, we can delete $R_2$.
 \problem{5:}{4}
 Assume the following decomposition of $R$ in Q3: $R_{1}(A, B, E)$ and $R_{2}(C, D, E)$. Is this decomposition lossy or lossless? Why? Show your work in detail.\\\\
 For the decomposition of a relation to be lossless, we need one of the two following conditions to be true: $R_1 \cap R_2\rightarrow R_1$, or $R_1 \cap R_2\rightarrow R_2$.
-Since $R_1\cap R_2=\{\}$, this means that the decomposition must be lossy.
+Since $R_1\cap R_2=\{E\}$, and $E\rightarrow A$, and we know $A\rightarrow BC$, This means that by the decomposition and transitivity rules, $E\rightarrow A$ and $E\rightarrow B$. Therefore, $E\rightarrow R_1$, and so the decomposition must be lossless.
 
 
 
