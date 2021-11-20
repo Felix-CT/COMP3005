@@ -105,8 +105,8 @@ So, finally we have:
   &B^+: BD
 \end{align*}
 
-So, we need to create two relation such that A, CD, E, and B are primary keys, and that the intersection of the two relations is a primary key of at least one of the relations. We know that for $B$ to be a primary key, we need it to be in a relation that only contains $B$ and $D$. Therefore, we know that $R_1=\{B,D\}$. Next, since the closure of the other three attributes is $R$, it does not matter which values we choose, as our remaining values determine all values. So, we can choose it as the following: $R_2=\{A,B,C,E\}$. Since $R_1\cup R_2={B}$, and $B$ is a superkey for $R_2$, we know it must be lossless.\\\\
-Since $A^+, CD^+$ and $E^+$ are superkeys for $R_2$ and $B$ is a superkey for $R_1$, we know the decomposition must be in BCNF.
+So, we need to create two relation such that A, CD, E, and B are primary keys, and that the intersection of the two relations is a primary key of at least one of the relations. We know that for $B$ to be a primary key, we need it to be in a relation that only contains $B$ and $D$. Therefore, we know that $R_1=\{B,D\}$. Next, since the closure of the other three attributes is $R$, it does not matter which values we choose, as our remaining values determine all values. So, we can choose it as the following: $R_2=\{A,B,C,E\}$. Since $R_1\cup R_2={B}$, and $B^+$ is a superkey for $R_2$, we know it must be lossless.\\\\
+Since $A^+, CD^+$ and $E^+$ are superkeys for $R_2$ and $B^+$ is a superkey for $R_1$, we know the decomposition must be in BCNF.
 
 
 
@@ -217,7 +217,7 @@ A\rightarrow BCD\\
 BC\rightarrow E\\
 B\rightarrow D\\
 D\rightarrow A\}$
-Now, we need to check if $BC\right D$ can be implied by $F'$. Since $B\rightarrow D$, we know $BC\rightarrow D$.
+Now, we need to check if $BC\rightarrow D$ can be implied by $F'$. Since $B\rightarrow D$, we know $BC\rightarrow D$.
 Next, we can see that $B^+=\{A,B,C,D,E\}$, as we calculated in the previous question, so since $D\in B^+$, $D$ is extraneous. Thus, currently:\\
 $F_c=\{\\
 A\rightarrow BCD\\
@@ -260,11 +260,36 @@ D\rightarrow A\}$\\
 %This seems wrong, since you're losing the extra information right?
 
 
-\subproblem{d} Give a 3NF decomposition of the given schema based on a canonical cover. \indent (4 points)
+\subproblem{d} Give a 3NF decomposition of the given schema based on a canonical cover. \indent (4 points)\\\\
+We begin with the first part of the algorithm, which is: "for each functional dependency $\alpha\rightarrow\beta$ in $F_c$, do $i=i+1,R_i=\alpha\beta$". Thus, we know have:
+\begin{align*}
+  R_1 &= ABC\\
+  R_2 &= BCE\\
+  R_2 &= BD\\
+  R_3 &= AD\\
+\end{align*}
+Next, we need to check if any of the schemas we just listed contain a candidate key for $R$. Since a candidate key for $R$ would need to include $G$, we can concur that none of our current schemas contain such a candidate key. Therefore, we must create the following schema:
+$$R_4=G$$
+Then, the next part of the algorithm states "if any schema $R_j$ is contained in another schema $R_k$, delete $R_j$ and decrement $i$". We can see that none of our schemas are contained within each other, and so we cannot delete any. Therefore, our final decomposition into 3NF is:
+\begin{align*}
+  R_1 &= ABC\\
+  R_2 &= BCE\\
+  R_2 &= BD\\
+  R_3 &= AD\\
+  R_4 &= G
+\end{align*}
 
 
+\subproblem{e} Give a BCNF decomposition of the given schema based on $F$. Use the first functional dependency as the violator of the BCNF condition. \indent (4 points)\\\\
+The functional dependency that violates BCNF will be $A\rightarrow BCD$. Because $ABCD$ is not a primary key for $R $, this means that $R$ is not in BCNF. This means that we need to execude the next part of the algorithm.\\
+Since $A^+$ does not contain $G$, we know it cannot contain $R$, and we can also see that $\{A\}\cap\{B,C,D\}=\emptyset$. Thus the algorithm will do the following:\\
+1. Remove $R$ from the result\\
+2. Add the two following relations to the result: $R_1(A,E,G), R_2(A,B,C,D)$\\\\
+Next, we know trivially that $A^+$ contains $R_2$. Since $D\rightarrow A$, $D^+$ must also contain $R_2$. Since $B\rightarrow D$, $B^+$ must also contain $R_2$. Next, since $BC\rightarrow D$, we know that $BC^+$ contains $R_2$ since $BC\rightarrow D$.\\
+Thus, we now know that all of our functional dependencies hold on $R_2$ and contain $R_2$, and therefore $R_2$ must be in BCNF.\\
+Now, we have arrived at a result where none of the functional dependencies in $F$ hold for $R_1$. Therefore, there cannot be any violations.\\
+Thus, our algorithm terminates, and we have decomposed the relation into BCNF.
 
-\subproblem{e} Give a BCNF decomposition of the given schema based on $F$. Use the first functional dependency as the violator of the BCNF condition. \indent (4 points)\\
 
 
 
@@ -325,21 +350,45 @@ $A \rightarrow BC$\\
 $BD \rightarrow E$\\
 $CD \rightarrow AB$\\
 Use the BCNF decomposition algorithm to find a BCNF decomposition of $R$. Start with $A \rightarrow BC$. Explain your steps. Is this decomposition lossy or lossless? Is it dependency-preserving?\\\\
+As we begin the algorithm we see that $A\rightarrow BC$ is nontrivial, it holds in $R$, and $A^+$ does not contain $R$ (since $A^+$ cannot contain $G$), and $\alpha\cap\beta=\emptyset$.
+Therefore, our two new relations are:
 \begin{align*}
-  &\text{result} = ABC\\
+  R_1 &= \{A,D,E,G\}\\
+  R_2 &= \{A,B,C\}
 \end{align*}
-We cannot infer $BD$ or $CD$ from our current result, so $R_1=\{A,B,C\}$.
-Next, we can look at $BD\rightarrow E$. Again, knowing $BDE$ does not allow us to infer any more information, and so $R_2=\{B,D,E\}$.\\
-Then, we have $CD\rightarrow AB$. Since we know $A$, we can add $A\rightarrow BC$ to our result. Therefore, we have
-
-
+This decomposition is lossless. This is because $R_1\cap R_2=A$, which is a superkey for $R_2$.\\\\
+%It would not be dependecy preserving, as $BD\rightarrow E$ and $CD\rightarrow AB$ are no longer held in $R_1$ or $R_2$.
+We will now execute the algorithm to determine if the decomposition is dependency preserving:\\\\
+We will begin with $A\rightarrow BC$\\
+$result = A$\\
+$t=(result\cap R_1)^+\cap R_1=(A)^+\cap\{A,D,E,G\}=\{A\}$\\
+$result=A\cup\{A,B,C\}=\{A,B,C\}$\\
+2nd loop:
+$t=(result\cap R_2)^+\cap R_2=(A)^+\cap\{A,B,C\}=\{A,B,C\}$\\
+$result=A\cup\{A,B,C\}=\{A,B,C\}$\\
+result already contains all the values in $BC$, and so we know the functional dependency will be preserved.\\\\
+Next, we will execute the algorithm on $BD\rightarrow E$:\\
+$result = BD$\\
+$t=(result\cap R_1)^+\cap R_1=(D)^+\cap\{A,D,E,G\}=\{D\}$\\
+$result=BD\cup\{D\}=\{B,D\}$\\
+2nd loop:
+$t=(result\cap R_2)^+\cap R_2=(B)^+\cap\{A,B,C\}=\{B\}$\\
+$result=BD\cup\{B\}=\{B,D\}$\\
+Therefore, since $result$ has not changed, and it does not contain $E$, the dependency $BD\rightarrow E$ is not preserved. Therefore, this decomposition is not dependency preserving.\\\\
+Normally I would stop here, however I am unsure as to if I am expected to also run the algorithm for the third dependency, so we will run it anyways.\\\\
+Next, we will execute the algorithm on $CD\rightarrow AB$:\\
+$result = CD$\\
+$t=(result\cap R_1)^+\cap R_1=(D)^+\cap\{A,D,E,G\}=\{D\}$\\
+$result=CD\cup\{D\}=\{C,D\}$\\
+2nd loop:
+$t=(result\cap R_2)^+\cap R_2=(C)^+\cap\{A,B,C\}=\{C\}$\\
+$result=CD\cup\{C\}=\{C,D\}$\\
+Therefore, since $result$ has not changed and it does not contain $\{A,B\}$, we know the functional dependency $CD\rightarrow AB$ is not preserved.\\\\
+Therefore, since the functional dependencies $BD\rightarrow E$ and $CD\rightarrow AB$ are not preserved, the decomposition of $R$ into BCNF is not dependency preserving.
 
 \problem{9:}{3}
 As discussed in class, SQL does not support functional dependency constraints. But it supports materialized views. Assume that the DBMS maintains the materialized view immediately. Given a relation $R(W, X, Y, Z)$, how would you use materialized views to enforce the functional dependency $W \rightarrow Z$?\\\\
-I would create a view that contains only $W$ and $Z$, where $W$ is the primary key.
 
-
-\end{document}
-
+We could create a materialized view $V$ that would contain $W$ and $Z$, and we would alter the table, enforcing that $W$ must be a primary key for $V$. This would ensure that each value of $W$ could only have one $Z$ value. This would additionalaly allow us to rollback in the case that data that would violate this constraint would be entered.
 
 \end{document}
