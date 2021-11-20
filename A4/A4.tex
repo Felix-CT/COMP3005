@@ -51,13 +51,13 @@ Here is a counter example:
 \end{center}
 $X\rightarrow Y$ is valid as there is no situation where the $X$ values are the same, but the values of $Y$ is different.\\
 $Z\rightarrow Y$ is valid as there is no situation where the $Z$ values are the same, but the values of $Y$ is different.\\
-$X\rightarrow Z$ is invalid, as we have the tuples $(a,b),(a,c)$, so $X$ cannot be functionally dependent on $Z$
+$X\rightarrow Z$ is invalid, as we have the tuples $(a,b),(a,c)$, so the functional dependency $X\rightarrow Y$ is violated.
 
 
 
 \problem{2:}{3}
 How can you use functional dependencies to represent the constraint that a relationship between two entity sets $X$ and $Y$ is one-to-many from $X$ to $Y$.\\\\
-You would denote it as $Y\rightarrow X$. This is because multiple values of $Y$ can have the same value of $X$, without the constraint being violated. On the other hand, if we were to have different values of $X$ for the same value of $Y$, the constraint (and the relationship) would be violated.
+You would denote it as $X\rightarrow Y$. This is because multiple values of $X$ can have the same value of $Y$, without the constraint being violated. On the other hand, if we were to have different values of $Y$ for the same value of $X$, the constraint (and the relationship) would be violated.
 
 
 \problem{3:}{8}
