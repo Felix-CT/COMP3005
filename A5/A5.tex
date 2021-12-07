@@ -25,10 +25,10 @@ pdfproducer={PDFLaTeX},%
 
 
 \begin{document}
-\homework{Assignment \#5}{Due: Friday Dec. 10, 2021 (11:59 PM)}{Ahmed El-Roby}{}{}{}
+\homework{Assignment \#5}{Due: Friday Dec. 10, 2021 (11:59 PM)}{Ahmed El-Roby}{}{Félix Cardinal Tremblay}{101141593}
 \textbf{Instructions}: Read all the instructions below carefully before you start working on the assignment, and before you make a submission.
 \begin{itemize}
-    \item The accepted format for your submission is pdf. 
+    \item The accepted format for your submission is pdf.
     \item If you use the tex file, make sure you edit line 28 to add your name and ID. Only write your solution and do not change anything else in the tex file. If you do, you will be penalized.
     %\item All questions in this assignment use the university schema discussed in class (on culearn), unless otherwise stated.
     %\item For SQL questions, upload a text file with your queries in the format shown in the file ``template.txt'' uploaded on culearn. An example submission is in the file ``sample.txt''. You will be penalized if the format is incorrect or there is no text file submission.
@@ -37,12 +37,22 @@ pdfproducer={PDFLaTeX},%
 \end{itemize}
 
 \problem{1:}{4}
-RAID systems can support replacing failed disks without the system going offline. Which of the RAID levels better support this operation with the least amount of interference between the rebuild and ongoing disk accesses? Explain your answer.
+RAID systems can support replacing failed disks without the system going offline. Which of the RAID levels better support this operation with the least amount of interference between the rebuild and ongoing disk accesses? Explain your answer.\\\\
+
+For this case, RAID level 1 would be the most optimal choice. Due to the fact that we have every disc copied on a separate disk, all we would need to do to rebuild the disk would be to copy all of the information of the mirror onto the failed disk.
+
+% RAID level 4 would be the optimal level for this case. Although it may not be useful for read operations, being able to use parity blocks combined with our normal blocks to be able to reconstruct our information quickly will be extremely useful if our goal is to prioritize replacing failed disks.
+%
+% -raid level 5 could be useful because you can use that extra disk for faster speeds instead of using it for only partitions
+%
+% -raid level 6 is less useful since you need to update the extra disks that store the correction blocks when writes are executed
 
 \problem{2:}{4}
 Consider the following arrangement for four disks, where $B_{i}$ is a data block, and $P_{i}$ is the parity block for the 4 data blocks that precedes it. What problem will this arrangement cause?
 
-{\centering \includegraphics[width=\textwidth/2]{figure1.png}}
+{\centering \includegraphics[width=\textwidth/2]{figure1.png}}\\\\
+
+The issue here is that some of the parity that is stored within the parity blocks is within the same disk as the parity block itself. This means that if a disk fails, there will be no way to recover some of the information. For example, if disk 1 fails, since we lose $P_1$ as well, there is no way to recover $B_1$.
 
 
 
@@ -95,4 +105,3 @@ Consider the following $B^{+}$-tree with $n = 6$:
 Insert 8 into this tree.
 
 \end{document}
-
