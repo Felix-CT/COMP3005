@@ -80,15 +80,21 @@ Show the structure of the file after each of the following operations (\textbf{t
 
 
 \problem{4:}{3}
-In variable-length record representation, the record starts with offset and length pairs of variable-size attributes, followed by fixed-size attributes, then the null bitmap, and finally the variable-size attributes. How can we improve this representation if our application is expected to store tables with large number of attributes, most of which are nulls?
+In variable-length record representation, the record starts with offset and length pairs of variable-size attributes, followed by fixed-size attributes, then the null bitmap, and finally the variable-size attributes. How can we improve this representation if our application is expected to store tables with large number of attributes, most of which are nulls?\\\\
+
+We could utilize a representation where the null bitmap is stored at the beginning of the record, while simultaneously omitting the value, as well as the offset and length of that attribute. This would allow us to save on a lot of space that would otherwise be filled with useless (null) values, however it would create a bit of extra work while trying to extract attributes of a record.
 
 
 
 \problem{5:}{12}
 Construct a $B^{+}$-tree for the following set of key values: (2, 3, 5, 7, 11, 17, 19, 23, 29, 31). The tree is initially empty and values are added one value at a time in ascending order. Consider the following values of $n$:
-\subproblem{a} $n = 4$.\indent \indent (4 points)
-\subproblem{b} $n = 6$.\indent \indent (4 points)
-\subproblem{c} $n = 8$.\indent \indent (4 points)
+\subproblem{a} $n = 4$.\indent \indent (4 points)\\
+{\centering \includegraphics[scale=0.3]{5a.png}}
+
+\subproblem{b} $n = 6$.\indent \indent (4 points)\\
+{\centering \includegraphics[scale=0.4]{5b.png}}
+\subproblem{c} $n = 8$.\indent \indent (4 points)\\
+{\centering \includegraphics[scale=0.5]{5c.png}}
 
 
 
@@ -98,9 +104,11 @@ Consider the following $B^{+}$-tree with $n = 4$:
 \includegraphics[height=2in, width=6in]{tree-delete.png}
 \end{figure}
 
-\subproblem{a} Delete 23.\indent \indent (4 points)
+\subproblem{a} Delete 23.\indent \indent (4 points)\\
+{\centering \includegraphics[scale=0.5]{6a.png}}
 
-\subproblem{b} Delete 19 (after the previous deletion in (a)).\indent \indent (4 points)
+\subproblem{b} Delete 19 (after the previous deletion in (a)).\indent \indent (4 points)\\
+{\centering \includegraphics[scale=0.5]{6b.png}}
 
 \problem{7:}{4}
 Consider the following $B^{+}$-tree with $n = 6$:
@@ -108,5 +116,7 @@ Consider the following $B^{+}$-tree with $n = 6$:
 \includegraphics[height=1in, width=5in]{tree-insert.png}
 \end{figure}
 Insert 8 into this tree.
+
+{\centering \includegraphics[scale=0.15]{7.png}}
 
 \end{document}
