@@ -20,11 +20,11 @@ public class Menu {
 
 
     void printMainMenu(){
-        System.out.println("Welcome to the bookstore database program. Please choose one of the following options:");
-        System.out.println("1: Login \n 2: Sign up\n 3: View the store\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("Welcome to the bookstore database program. Please choose one of the following options:");
+            System.out.println("1: Login \n 2: Sign up\n 3: View the store\n 0: Exit");
+            int result = sc.nextInt();
             switch (result){
                 case 1:
                     login();
@@ -49,7 +49,7 @@ public class Menu {
     void printUserMenu(){
         if (curUserType.equals("normal")){
             printNormalUserMenu();
-        }else if (curUserType.equals("owner")){
+        }else if (curUserType.equals("admin")){
             printAdminMenu();
         } else{
             printNotUserMenu();
@@ -57,11 +57,11 @@ public class Menu {
     }
 
     void printNotUserMenu(){
-        System.out.println("Please choose one of the following options:");
-        System.out.println("1: View books \n 2: View current basket\n 3: Login\n 4: Sign Up\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("Please choose one of the following options:");
+            System.out.println("1: View books \n 2: View current basket\n 3: Login\n 4: Sign Up\n 0: Exit");
+            int result = sc.nextInt();
             switch (result){
                 case 1:
                     printBookMenu();
@@ -80,7 +80,7 @@ public class Menu {
                     loop = false;
                     break;
                 case 0:
-                    System.exit(0);;
+                    System.exit(0);
                 default:
                     System.out.println("You have entered an invalid choice. Please try again.");
             }
@@ -91,11 +91,11 @@ public class Menu {
 
 
     void printNormalUserMenu(){
-        System.out.println("Please choose one of the following options:");
-        System.out.println("1: View books \n 2: View current basket\n 3: Track an Order\n 4: Logout\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("Please choose one of the following options:");
+            System.out.println("1: View books \n 2: View current basket\n 3: Track an Order\n 4: Logout\n 0: Exit");
+            int result = sc.nextInt();
             switch (result){
                 case 1:
                     printBookMenu();
@@ -123,12 +123,13 @@ public class Menu {
     }
 
     void printAdminMenu(){
-        System.out.println("Please choose one of the following options:");
-        System.out.println("1: View books \n 2: Add a book to the database \n 3: Remove a book from the database\n " +
-                "4: View publishers\n 5:Generate a Report\n 6: Track an Order\n 7: Logout\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("Please choose one of the following options:");
+            System.out.println("1: View books \n 2: Add a book to the database \n 3: Remove a book from the database\n " +
+                    "4: View publishers\n 5: Generate a Report\n 6: Track an Order\n 7: Logout\n 0: Exit");
+            int result = sc.nextInt();
+            sc.nextLine();
             switch (result){
                 case 1:
                     printBookMenu();
@@ -164,18 +165,18 @@ public class Menu {
                     System.out.println("You have entered an invalid choice. Please try again.");
             }
         }
-        printMainMenu();
+        printUserMenu();
     }
 
     void printBookMenu(){
-        System.out.println("You are now in the Book Menu. Please choose one of the following options:");
-        System.out.println("1: View all books \n 2: Find books by Title  \n 3: Find books by author\n " +
-                "4: Find books by price\n 5: Find books by publisher\n  6: Find books by number of pages\n  " +
-                "7: Find books by ISBN\n 8: Find books by genre 0: Exit");
-        int result = sc.nextInt();
-        sc.nextLine();
         boolean loop = true;
         while (loop){
+            System.out.println("You are now in the Book Menu. Please choose one of the following options:");
+            System.out.println("1: View all books \n 2: Find books by Title  \n 3: Find books by author\n " +
+                    "4: Find books by price\n 5: Find books by publisher\n  6: Find books by number of pages\n  " +
+                    "7: Find books by ISBN\n 8: Find books by genre\n 0: Exit");
+            int result = sc.nextInt();
+            sc.nextLine();
             switch (result){
                 case 1:
                     printAllBooks();
@@ -219,14 +220,14 @@ public class Menu {
     }
 
     void printBasketMenu(){
-        System.out.println("You are now in your checkout basket. Here are the current books in your basket:\n");
-        printCheckoutBasket();
-        System.out.println("Please choose one of the following options:");
-        System.out.println("1: Remove a book from the basket\n 2: Change the amount of a book in the basket\n" +
-                " 3: Checkout\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("You are now in your checkout basket. Here are the current books in your basket:\n");
+            printCheckoutBasket();
+            System.out.println("Please choose one of the following options:");
+            System.out.println("1: Remove a book from the basket\n 2: Change the amount of a book in the basket\n" +
+                    " 3: Checkout\n 0: Exit");
+            int result = sc.nextInt();
             switch (result){
                 case 1:
                     removeBookFromBasket();
@@ -250,12 +251,13 @@ public class Menu {
     }
 
     void printReportMenu(){
-        System.out.println("You are now in the report menu. Please choose which type of report you would like to generate:");
-        System.out.println("1: Sales vs Expenditures\n 2: Sales per Genre\n 3: Sales per Author\n " +
-                "4: Sales per Publisher\n 0: Exit");
-        int result = sc.nextInt();
         boolean loop = true;
         while (loop){
+            System.out.println("You are now in the report menu. Please choose which type of report you would like to generate:");
+            System.out.println("1: Sales vs Expenditures\n 2: Sales per Genre\n 3: Sales per Author\n " +
+                    "4: Sales per Publisher\n 0: Exit");
+            int result = sc.nextInt();
+            sc.nextLine();
             switch (result){
                 case 1:
                     generateExpendituresReport();
@@ -428,6 +430,8 @@ public class Menu {
         String numPages = sc.nextLine();
         System.out.println("Please enter the price of the book you would like to add to the database:");
         String price = sc.nextLine();
+        System.out.println("Please enter the supplier's price of the book you would like to add to the database:");
+        String sPrice = sc.nextLine();
         System.out.println("Please enter the percentage of the profit the publisher will receive of the book you would like to add to the database:");
         String profit = sc.nextLine();
         System.out.println("Please enter the current stock of the book you would like to add to the database:");
@@ -439,8 +443,9 @@ public class Menu {
         {
           statement.executeUpdate("INSERT INTO book VALUES (" + ISBN + ", '" + title + "', '" + author + "', '"
                                                                    + publisher + "', '" + genre + "', " + numPages +
-                                                                                  ", " + price + ", " + profit + ", " +
+                                                                                  ", " + price + ", " + sPrice + ", " + profit + ", " +
                                                                     stock + ");");
+            System.out.println("Book has been successfully added.");
 
         } catch (Exception sqle) {
             System.out.println(sqle);
@@ -455,7 +460,7 @@ public class Menu {
              Statement statement = connection.createStatement();
         )
         {
-            statement.executeUpdate("DELETE FROM book WHERE ISBN = " + ISBN);
+            statement.executeUpdate("DELETE FROM book WHERE ISBN = '" + ISBN + "';");
 
         } catch (Exception sqle) {
             System.out.println(sqle);
@@ -501,7 +506,7 @@ public class Menu {
         float min = sc.nextFloat();
         System.out.println("Please enter the maximum number of pages of the book you would like to find:");
         float max = sc.nextFloat();
-        callDatabase("select * from book where num_pages > " + min +" AND num+pages < " + max + ";");
+        callDatabase("select * from book where num_pages > " + min +" AND num_pages < " + max + ";");
     }
 
     void printBooksByISBN(){
@@ -550,13 +555,13 @@ public class Menu {
              Statement statement = connection.createStatement();
         )
         {
-            ResultSet rSet = statement.executeQuery("select isbn, amount, checkout_session.shipping_info, checkout_session.billing_info from (checkout_session natural join basketed_book) inner join db_user ON checkout_basket.ID = db_user.checkout_basket where username = '" + curUser + "';");
+            ResultSet rSet = statement.executeQuery("select isbn, amount, checkout_session.shipping_info, checkout_session.billing_info from (checkout_session natural join basketed_book) inner join db_user ON checkout_session.ID = db_user.checkout_basket where username = '" + curUser + "';");
+            rSet.next();
+            statement.executeUpdate("insert into db_order values ('" + curOrderNum++ + "', null, '" + rSet.getString("shipping_info") + "', '" + rSet.getString("shipping_info") + "');");
 
-            statement.executeUpdate("insert into db_order values ('" + curOrderNum++ + "', null, '" + rSet.getString("shipping_info") + "', " + rSet.getString("shipping_info") + "');");
-
-            while (rSet.next()) {
-                statement.executeUpdate("insert into ordered_book values ('" + (curOrderNum - 1) + ", '" + rSet.getString("isbn") + "', '" + rSet.getString("amount") +"');");
-            }
+            do  {
+                statement.executeUpdate("insert into ordered_book values ('" + (curOrderNum - 1) + "', '" + rSet.getString("isbn") + "', '" + rSet.getString("amount") +"');");
+            }while (rSet.next());
             System.out.println("Successfully checked out!");
             printUserMenu();
         } catch (Exception sqle) {
@@ -582,32 +587,34 @@ public class Menu {
 
     void generateReport(String type){
         System.out.println("What is the starting date the report should be run for? (enter in yyyy-MM-dd format or the program will break.)");
-        Date startDate = Date.valueOf(sc.nextLine());
+        String startDate = sc.nextLine();
+        //Date startDate = Date.valueOf(sc.nextLine());
         System.out.println("What is the ending date the report should be run for? (enter in yyyy-MM-dd format or the program will break.)");
-        Date endDate = Date.valueOf(sc.nextLine());
+        String endDate = sc.nextLine();
+        //Date endDate = Date.valueOf(sc.nextLine());
 
         try (Connection connection = DriverManager.getConnection(url, "postgres", "4aq!cKeAS9ncRkyj");
              Statement statement = connection.createStatement();
         )
         {
             System.out.println("connected");
-            if (type.equals("expenditure")){
-                ResultSet rSet = statement.executeQuery("select amount, price, profit_percentage from (book natural join sale) where sale_date > " + startDate + " AND sale_date < " + endDate + ";");
+            if (type.equals("Expenditures")){
+                ResultSet rSet = statement.executeQuery("select amount, price, profit_percentage from (book natural join sale) where sale_date > '" + startDate + "' AND sale_date < '" + endDate + "';");
                 float totalProfit = 0;
                 while (rSet.next()){
-                    totalProfit += (rSet.getFloat("price") * rSet.getFloat("profit_percentage"));
+                    totalProfit += (rSet.getFloat("price") * rSet.getFloat("profit_percentage") * rSet.getFloat("amount"));
                 }
 
-                rSet = statement.executeQuery("select amount, price, profit_percentage from (book natural join expenditure) where expenditure_date > " + startDate + " AND expenditure_date < " + endDate + ";");
+                rSet = statement.executeQuery("select amount, supplier_price from (book natural join expenditure) where expenditure_date > '" + startDate + "' AND expenditure_date < '" + endDate + "';");
                 float totalExpenditures = 0;
                 while (rSet.next()) {
-                    totalExpenditures += (rSet.getFloat("price") * rSet.getFloat("profit_percentage"));
+                    totalExpenditures += (rSet.getFloat("amount") * rSet.getFloat("supplier_price"));
                 }
 
                 System.out.println("Total Profit: " + totalProfit);
                 System.out.println("Total Expenditures: " + totalExpenditures);
             } else if (type.equals("Genre")){
-                ResultSet rSet = statement.executeQuery("select unique genre from book");
+                ResultSet rSet = statement.executeQuery("select distinct genre from book;");
                 ArrayList<String> genres = new ArrayList<>();
                 while (rSet.next()){
                     genres.add(rSet.getString("genre"));
@@ -617,35 +624,35 @@ public class Menu {
                     int numSales = 0;
                     float salesValue = 0;
 
-                    rSet = statement.executeQuery("select amount, price from expenditure natural join book where expenditure_date > " + startDate + " and expenditure_date < " + endDate + " and genre = " + genre + ";");
+                    rSet = statement.executeQuery("select amount, price from sale natural join book where sale_date > '" + startDate + "' AND sale_date < '" + endDate + "' AND genre = '" + genre + "';");
 
                     while (rSet.next()) {
                         salesValue += rSet.getFloat("price") * rSet.getInt("amount");
                         numSales += rSet.getInt("amount");
-                        System.out.println("There were " + numSales + "sales in the " + genre + " genre for a total of " + salesValue + "$.");
                     }
+                    System.out.println("There were " + numSales + " sales in the " + genre + " genre for a total of " + salesValue + "$.");
                 }
             } else if (type.equals("Author")){
-                ResultSet rSet = statement.executeQuery("select unique author from book");
+                ResultSet rSet = statement.executeQuery("select distinct author_name from book;");
                 ArrayList<String> authors = new ArrayList<>();
                 while (rSet.next()) {
-                    authors.add(rSet.getString("author"));
+                    authors.add(rSet.getString("author_name"));
                 }
 
                 for (String author : authors) {
                     int numSales = 0;
                     float salesValue = 0;
 
-                    rSet = statement.executeQuery("select amount, price from expenditure natural join book where expenditure_date > " + startDate + " and expenditure_date < " + endDate + " and author = " + author + ";");
+                    rSet = statement.executeQuery("select amount, price from sale natural join book where sale_date > '" + startDate + "' and sale_date < '" + endDate + "' and author_name = '" + author + "';");
 
                     while (rSet.next()) {
                         salesValue += rSet.getFloat("price") * rSet.getInt("amount");
                         numSales += rSet.getInt("amount");
-                        System.out.println("There were " + numSales + "sales by the author " + author + " for a total of " + salesValue + "$.");
                     }
+                    System.out.println("There were " + numSales + " sales by the author " + author + " for a total of " + salesValue + "$.");
                 }
             } else if (type.equals("Publisher")) {
-                ResultSet rSet = statement.executeQuery("select unique publisher from book");
+                ResultSet rSet = statement.executeQuery("select distinct publisher from book;");
                 ArrayList<String> publishers = new ArrayList<>();
                 while (rSet.next()) {
                     publishers.add(rSet.getString("publisher"));
@@ -655,13 +662,13 @@ public class Menu {
                     int numSales = 0;
                     float salesValue = 0;
 
-                    rSet = statement.executeQuery("select amount, price from expenditure natural join book where expenditure_date > " + startDate + " and expenditure_date < " + endDate + " and publisher = " + publisher + ";");
+                    rSet = statement.executeQuery("select amount, price from sale natural join book where sale_date > '" + startDate + "' and sale_date < '" + endDate + "' and publisher = '" + publisher + "';");
 
                     while (rSet.next()) {
                         salesValue += rSet.getFloat("price") * rSet.getInt("amount");
                         numSales += rSet.getInt("amount");
-                        System.out.println("There were " + numSales + "sales by the publisher " + publisher + " for a total of " + salesValue + "$.");
                     }
+                    System.out.println("There were " + numSales + " sales by the publisher " + publisher + " for a total of " + salesValue + "$.");
                 }
             }
 
